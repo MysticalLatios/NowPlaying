@@ -2,10 +2,13 @@ package com.example.nowplaying;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -25,7 +28,15 @@ public class MainActivity extends AppCompatActivity {
         client.get(MOVIE_URL, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONArray movies = response.getJSONArray("results");
+                    //Log the success
+                    Log.d("success", movies.toString());
+                }
+                catch (JSONException e){
+                    //print the failure
+                    e.printStackTrace();
+                }
             }
 
             @Override
