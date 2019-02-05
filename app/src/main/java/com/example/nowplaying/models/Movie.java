@@ -13,10 +13,12 @@ public class Movie {
     String posterPath;
     String title;
     String  overview;
+    String backdropPath;
 
     //Create a constructor that will throw any exceptions to what calls the constructor
     public Movie(JSONObject json_in) throws JSONException {
         posterPath = json_in.getString("poster_path");
+        backdropPath = json_in.getString("backdrop_path");
         title = json_in.getString("title");
         overview = json_in.getString("overview");
     }
@@ -32,6 +34,10 @@ public class Movie {
 
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath) ;
+    }
+
+    public String getBackdropPath() {
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath) ;
     }
 
     public String getTitle() {

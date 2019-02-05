@@ -1,6 +1,7 @@
 package com.example.nowplaying.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.nowplaying.R;
 import com.example.nowplaying.models.Movie;
 
@@ -60,6 +62,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         public void bind(Movie movie){
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
+
+            //Reference the backdrop path if phone is in landscape
+            String imageUrl = movie.getPosterPath();
+            if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                imageUrl = movie.getBackdropPath();
+            }
+
+            Glide.with(context).load(imageUrl).into(ivPoster);
         }
     }
 }
