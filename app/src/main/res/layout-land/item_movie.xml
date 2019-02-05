@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/ivPoster"
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         tools:srcCompat="@tools:sample/avatars[2]" />
 
