@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -30,7 +31,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/colorAccent"
         android:layout_toEndOf="@+id/ivPoster"
+        android:textColor="@color/colorAccent"
         tools:text="more sample text for the discription the discription may have a lot of text so im going to keep writing so I an properly preview this text." />
 </RelativeLayout>

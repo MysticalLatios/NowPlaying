@@ -12,8 +12,10 @@ import java.util.List;
 public class Movie {
     String posterPath;
     String title;
-    String  overview;
+    String overview;
     String backdropPath;
+    String releaseDate;
+    int rating;
 
     //Create a constructor that will throw any exceptions to what calls the constructor
     public Movie(JSONObject json_in) throws JSONException {
@@ -21,6 +23,8 @@ public class Movie {
         backdropPath = json_in.getString("backdrop_path");
         title = json_in.getString("title");
         overview = json_in.getString("overview");
+        releaseDate = json_in.getString("release_date");
+        rating = json_in.getInt("vote_average");
     }
 
     //Create a constructor for json arrays as an input
@@ -45,6 +49,10 @@ public class Movie {
     }
 
     public String getOverview() {
-        return overview;
+        return "Released: " + getReleaseDate() + "\n" + overview;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 }
