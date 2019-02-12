@@ -3,6 +3,7 @@ package com.example.nowplaying.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,7 @@ public class Movie implements Parcelable {
     String overview;
     String backdropPath;
     String releaseDate;
+    int id;
     double rating;
 
     //Create a constructor that will throw any exceptions to what calls the constructor
@@ -27,6 +29,7 @@ public class Movie implements Parcelable {
         overview = json_in.getString("overview");
         releaseDate = json_in.getString("release_date");
         rating = json_in.getDouble("vote_average");
+        id = json_in.getInt("id");
     }
 
     //Create a constructor for json arrays as an input
@@ -62,6 +65,10 @@ public class Movie implements Parcelable {
         return rating/2;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -75,6 +82,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.backdropPath);
         dest.writeString(this.releaseDate);
         dest.writeDouble(this.rating);
+        dest.writeInt(this.id);
     }
 
     protected Movie(Parcel in) {
@@ -84,6 +92,7 @@ public class Movie implements Parcelable {
         this.backdropPath = in.readString();
         this.releaseDate = in.readString();
         this.rating = in.readDouble();
+        this.id = in.readInt();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
