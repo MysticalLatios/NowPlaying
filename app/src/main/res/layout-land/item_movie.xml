@@ -33,16 +33,18 @@
 
     <TextView
         android:id="@+id/tvOverview"
-        android:layout_width="253dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/tvTitle"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/ivPoster"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivPoster"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="more sample text for the discription the discription may have a lot of text so im going to keep writing so I an properly preview this text." />
