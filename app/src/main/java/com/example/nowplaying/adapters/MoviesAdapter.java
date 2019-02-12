@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.nowplaying.R;
-import com.example.nowplaying.models.DetailActivity;
+import com.example.nowplaying.DetailActivity;
 import com.example.nowplaying.models.Movie;
 
 import java.util.List;
@@ -84,7 +83,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
                 public void onClick(View v) {
                     //Switch to the detail activity
                     Intent detail_activity = new Intent(context, DetailActivity.class);
-                    detail_activity.putExtra("title", movie.getTitle());
+                    detail_activity.putExtra("movie", movie);
 
                     context.startActivity(detail_activity);
                 }
