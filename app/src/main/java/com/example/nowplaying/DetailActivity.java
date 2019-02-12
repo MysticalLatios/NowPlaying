@@ -10,6 +10,9 @@ import com.example.nowplaying.R;
 
 public class DetailActivity extends AppCompatActivity {
 
+    public static final String YOUTUBE_API_KEY = "AIzaSyDMO4gyidU6I_g9bx85xFzYYa-eX687g38";
+
+
     TextView tvTitle;
     TextView tvOverview;
     TextView tvDate;
@@ -30,6 +33,6 @@ public class DetailActivity extends AppCompatActivity {
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         tvDate.setText(movie.getReleaseDate());
-        rbRatting.setRating(movie.getRating());
+        rbRatting.setRating(((float) movie.getRating()));
     }
 }

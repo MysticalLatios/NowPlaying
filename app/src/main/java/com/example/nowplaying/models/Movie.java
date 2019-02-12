@@ -17,7 +17,7 @@ public class Movie implements Parcelable {
     String overview;
     String backdropPath;
     String releaseDate;
-    int rating;
+    double rating;
 
     //Create a constructor that will throw any exceptions to what calls the constructor
     public Movie(JSONObject json_in) throws JSONException {
@@ -26,7 +26,7 @@ public class Movie implements Parcelable {
         title = json_in.getString("title");
         overview = json_in.getString("overview");
         releaseDate = json_in.getString("release_date");
-        rating = json_in.getInt("vote_average");
+        rating = json_in.getDouble("vote_average");
     }
 
     //Create a constructor for json arrays as an input
@@ -58,7 +58,7 @@ public class Movie implements Parcelable {
         return releaseDate;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating/2;
     }
 
@@ -74,7 +74,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.overview);
         dest.writeString(this.backdropPath);
         dest.writeString(this.releaseDate);
-        dest.writeInt(this.rating);
+        dest.writeDouble(this.rating);
     }
 
     protected Movie(Parcel in) {
@@ -83,7 +83,7 @@ public class Movie implements Parcelable {
         this.overview = in.readString();
         this.backdropPath = in.readString();
         this.releaseDate = in.readString();
-        this.rating = in.readInt();
+        this.rating = in.readDouble();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
