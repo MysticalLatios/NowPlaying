@@ -2,8 +2,6 @@
 A simple andriod app that shows the current popular movies from the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 ---
 
-## Flix Part 1
-
 ### User Stories
 - User can view a list of movies (title, poster image, and overview) currently playing in theaters from the Movie Database API.
 - Views are responsive for both landscape/portrait mode.
