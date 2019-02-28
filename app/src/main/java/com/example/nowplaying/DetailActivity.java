@@ -1,6 +1,8 @@
 package com.example.nowplaying;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
 import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -21,7 +25,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class DetailActivity extends YouTubeBaseActivity {
+public class DetailActivity extends AppCompatActivity{
 
     public static final String YOUTUBE_API_KEY = "AIzaSyDMO4gyidU6I_g9bx85xFzYYa-eX687g38";
     //Setting up to replace the %d, wich is the movie ID
@@ -32,20 +36,29 @@ public class DetailActivity extends YouTubeBaseActivity {
     TextView tvOverview;
     TextView tvDate;
     RatingBar rbRatting;
-    YouTubePlayerView youTubePlayerView;
+    YouTubePlayerSupportFragment frag;
+    String video;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        this.setSupportActionBar(toolbar);
+
         tvTitle = findViewById(R.id.tvTitle);
         tvOverview = findViewById(R.id.tvOverview);
         tvDate = findViewById(R.id.tvDate);
         rbRatting = findViewById(R.id.rbRatting);
-        youTubePlayerView = findViewById(R.id.player);
 
         Movie movie = getIntent().getParcelableExtra("movie");
+
+        frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.player);
 
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
@@ -65,7 +78,25 @@ public class DetailActivity extends YouTubeBaseActivity {
                     }
                     JSONObject movieTrailer = results.getJSONObject(0);
                     String youtubeKey = movieTrailer.getString("key");
-                    initializeYoutube(youtubeKey);
+                    video = youtubeKey;
+
+                    //Setup the video player
+                    frag.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+                        @Override
+                        public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+                            if (!wasRestored) {
+                                //Tell the player to set the video
+                                player.cueVideo(video);
+                            }
+                        }
+
+                        @Override
+                        public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                        }
+                    });
+
+
                 }
                 catch (JSONException e){
                     e.printStackTrace();
@@ -77,22 +108,6 @@ public class DetailActivity extends YouTubeBaseActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-            }
-        });
-
-
-    }
-
-    private void initializeYoutube(final String youtubeKey) {
-        youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.cueVideo(youtubeKey);
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
             }
         });
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.support.v7.widget.Toolbar;
 
 import com.example.nowplaying.adapters.MoviesAdapter;
 import com.example.nowplaying.models.Movie;
@@ -32,11 +33,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        setSupportActionBar(toolbar);
 
         //declare movies as a new array list so we don't crash looking for it
         movies = new ArrayList<>();
 
+        RecyclerView rvMovies = findViewById(R.id.rvMovies);
         final MoviesAdapter adapter = new MoviesAdapter(this, movies);
         rvMovies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvMovies.setAdapter(adapter);
